@@ -10,10 +10,16 @@ pipeline {
       }
     }
 
+   stage('Clone Repository') {
+            steps {
+                git 'https://github.com/DHARMIKR/sample_devsecops.git'
+            }
+        }
+    
     stage ('Deploy-To-Python') {
       steps {
         sshagent(['python']) {
-          sh 'scp -o StrictHostKeyChecking=no target/*.py ubuntu@3.120.192.5:/home/ubuntu/sample/server.py'
+          sh 'scp -o StrictHostKeyChecking=no sample_devsecops/*.py ubuntu@3.120.192.5:/home/ubuntu/sample/server.py'
         }
       }
     }
