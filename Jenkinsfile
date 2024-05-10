@@ -9,6 +9,14 @@ pipeline {
           '''
       }
     }
+
+    stage ('Deploy-To-Python') {
+      steps {
+        sshagent(['python']) {
+          sh 'scp -o StrictHostKeyChecking=no target/*.py ubuntu@3.120.192.5:/home/ubuntu/sample/server.py'
+        }
+      }
+    }
     
   }
 }
