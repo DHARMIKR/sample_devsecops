@@ -43,10 +43,4 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            archiveArtifacts artifacts: '**/*.html, **/*.json', allowEmptyArchive: true
-            junit 'reports/**/*.xml'  // If any tests produce JUnit XML reports
-        }
-    }
 }
