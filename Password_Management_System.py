@@ -22,6 +22,8 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+password = "Sample@12345"
+
 def checking_password_security(password):
     haslowercase_letter = True
     hasuppercase_letter = True
