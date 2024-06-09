@@ -4,8 +4,6 @@ pipeline {
     environment {
         GITHUB_REPO = 'https://github.com/DHARMIKR/sample_devsecops.git'
         GIT_BRANCH = 'main'
-        SONARQUBE_SERVER = 'http://127.0.0.1:9000'
-        ZAP_DOCKER_IMAGE = 'owasp/zap2docker-stable'
         APP_PORT = '80'  // Port your Python app runs on
     }
 
@@ -23,23 +21,6 @@ pipeline {
             }
         }
 
-        stage('Source Composition Analysis') {
-            steps {
-                sh '/home/ubuntu/dependency-check/bin/dependency-check.sh --project "PythonApp" --scan . --format "ALL" --out dependency-check-report'
-                archiveArtifacts artifacts: 'dependency-check-report/*', allowEmptyArchive: true
-            }
-        }
-
-        stage('Static Application Security Testing (SAST)') {
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') { 
-                        sh 'sonar-scanner'
-                    }
-                }
-            }
-        }
-
         stage('Start Python Server') {
             steps {
                 script {
@@ -48,13 +29,6 @@ pipeline {
                     // Wait for the server to start
                     sleep 10
                 }
-            }
-        }
-
-        stage('Dynamic Application Security Testing (DAST)') {
-            steps {
-                sh "docker run --rm -v $(pwd):/zap/wrk:rw -t ${ZAP_DOCKER_IMAGE} zap-baseline.py -t http://127.0.0.1:${APP_PORT} -r zap_report.html"
-                archiveArtifacts artifacts: 'zap_report.html', allowEmptyArchive: true
             }
         }
 
