@@ -37,9 +37,9 @@ def checking_password_security(password):
             haslowercase_letter = False
 
     # Numbers and Special Chars Logic
-    expression = "\d"
+    expression = r"\d"
     hasnumber = bool(re.search(expression, password))
-    expression_for_specialchars = '[^A-Za-z0-9\s]'
+    expression_for_specialchars = r'[^A-Za-z0-9\s]'
     hasspecial_chars = bool(re.search(expression_for_specialchars, password))
 
     # Main Program Conditions
