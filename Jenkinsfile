@@ -16,8 +16,9 @@ pipeline {
 
         stage('Check Git Secrets') {
             steps {
-                sh 'trufflehog --regex --entropy=False --json --repo . > trufflehog_report.json'
-                archiveArtifacts artifacts: 'trufflehog_report.json', allowEmptyArchive: true
+                sh 'rm trufflehog || true'
+                sh 'docker run gesellix/trufflehog --json https://github.com/DHARMIKR/sample_devsecops.git >> trufflehog'
+                sh 'cat trufflehog'
             }
         }
 
