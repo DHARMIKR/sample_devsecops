@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Start the Python server in the background
-                    sh 'nohup python3 server.py &'
+                    sh 'nohup python3 Password_Management_System.py &'
                     // Wait for the server to start
                     sleep 10
                 }
@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     // Stop the Python server
-                    sh 'pkill -f server.py'
+                    sh 'pkill -f Password_Management_System.py'
                 }
             }
         }
