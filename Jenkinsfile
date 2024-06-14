@@ -5,7 +5,7 @@ pipeline {
         GITHUB_REPO = 'https://github.com/DHARMIKR/sample_devsecops.git'
         GIT_BRANCH = 'main'
         APP_PORT = '80'  // Port your Python app runs on
-        SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        SONARQUBE_SCANNER_HOME = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     }
 
     stages {
