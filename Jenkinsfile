@@ -5,8 +5,6 @@ pipeline {
         GITHUB_REPO = 'https://github.com/DHARMIKR/sample_devsecops.git'
         GIT_BRANCH = 'main'
         APP_PORT = '80'  // Port your Python app runs on
-        SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-        SONARQUBE_SERVER = 'MySonarQubeServer'  // The name of your SonarQube server configuration in Jenkins
     }
 
     stages {
@@ -36,7 +34,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('MySonarQubeServer') { // Use the configured SonarQube server
-                    sh "${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=devsecops -Dsonar.sources=. -Dsonar.language=python -Dsonar.sourceEncoding=UTF-8"
+                    sh "sonar -Dsonar.projectKey=devsecops -Dsonar.sources=. -Dsonar.language=python -Dsonar.sourceEncoding=UTF-8"
                 }
             }
         }
