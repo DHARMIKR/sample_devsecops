@@ -33,7 +33,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('MySonarQubeServer') { // Use the configured SonarQube server
+                withSonarQubeEnv('sonar') { // Use the configured SonarQube server
                     sh "sonar -Dsonar.projectKey=devsecops -Dsonar.sources=. -Dsonar.language=python -Dsonar.sourceEncoding=UTF-8"
                 }
             }
