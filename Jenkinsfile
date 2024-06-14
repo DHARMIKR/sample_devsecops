@@ -53,7 +53,7 @@ pipeline {
 
         stage('DAST') {
             steps {
-                sh 'docker run -t ictu/zap2docker-weekly zap-baseline.py -t http://127.0.0.1/api/secure_password_generator'
+                sh 'docker run -t ictu/zap2docker-weekly zap-baseline.py -t http://127.0.0.1:5000/api/'
             }
         }
 
