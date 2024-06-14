@@ -5,6 +5,8 @@ pipeline {
         GITHUB_REPO = 'https://github.com/DHARMIKR/sample_devsecops.git'
         GIT_BRANCH = 'main'
         APP_PORT = '80'  // Port your Python app runs on
+        SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        SONARQUBE_SERVER = 'MySonarQubeServer'  // The name of your SonarQube server configuration in Jenkins
     }
 
     stages {
@@ -28,6 +30,14 @@ pipeline {
                 sh 'wget https://raw.githubusercontent.com/devopssecure/webapp/master/owasp-dependency-check.sh'
                 sh 'chmod +x owasp-dependency-check.sh'
                 sh 'bash owasp-dependency-check.sh'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('MySonarQubeServer') { // Use the configured SonarQube server
+                    sh "${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=devsecops -Dsonar.sources=. -Dsonar.language=python -Dsonar.sourceEncoding=UTF-8"
+                }
             }
         }
 
